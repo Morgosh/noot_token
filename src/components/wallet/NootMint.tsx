@@ -119,7 +119,6 @@ export function NootMint() {
   };
 
   // Shows if a transaction was successful 
-  //@ts-ignore
   const renderTransactionStatus = (txReceipt: any, txType: string) => {
     if (!txReceipt) return null;
     
