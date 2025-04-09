@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useWriteContractSponsored } from "@abstract-foundation/agw-react";
-import { useWaitForTransactionReceipt, useAccount, useWriteContract, useReadContract, usePublicClient } from "wagmi";
-import { parseEther, formatUnits } from "viem";
+import { useWaitForTransactionReceipt, useAccount, useWriteContract, usePublicClient } from "wagmi";
+import { formatUnits } from "viem";
 import { getGeneralPaymasterInput } from "viem/zksync";
 import { nootAbi, NOOT_CONTRACT_ADDRESS, PAYMASTER_ADDRESS } from "@/contract/NootABI";
 
@@ -30,12 +30,12 @@ export function NootMint() {
   } = useWriteContract();
 
   // Transaction receipt for free mint
-  const { data: freeMintReceipt, isLoading: freeMintReceiptLoading } = useWaitForTransactionReceipt({
+  const { data: freeMintReceipt } = useWaitForTransactionReceipt({
     hash: freeMintTxHash,
   });
 
   // Transaction receipt for paid mint
-  const { data: paidMintReceipt, isLoading: paidMintReceiptLoading } = useWaitForTransactionReceipt({
+  const { data: paidMintReceipt } = useWaitForTransactionReceipt({
     hash: paidMintTxHash,
   });
 
@@ -118,7 +118,8 @@ export function NootMint() {
     });
   };
 
-  // Shows if a transaction was successful
+  // Shows if a transaction was successful 
+  //@ts-ignore
   const renderTransactionStatus = (txReceipt: any, txType: string) => {
     if (!txReceipt) return null;
     
